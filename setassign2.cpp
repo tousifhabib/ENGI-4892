@@ -1,5 +1,4 @@
 #include<iostream>
-#include<cassert>
 
 template<typename T>
 class Set
@@ -30,9 +29,9 @@ public:
         }
         arr[current] = data;
         current++;
+        removeDuplicates(arr, current);
         quickSort(arr, 0, (current - 1));
     }
-
     void swapper(T* lhs, T* rhs)    //utility swapper function
     {
         T tempVal = *lhs;
@@ -69,10 +68,53 @@ public:
         for (int i = 0; i < current; i++) {
             std::cout << arr[i] << std::endl;
         }
+        //      contains(9);
     }
     // //! Is a specified element already in the set?
-    bool contains(const T& arr) const {
+    bool contains(const T& arrElement) const
+    {
+        bool found = false;
+        int i = 0;
+        while (i < current)
+        {
+            if (arrElement == arr[i])
+            {
+                //                std::cout<<"true";
+                found = true;
+                return found;
+            }
+            i++;
+        }
+        //        std::cout<<"false";
+        return found;
+    }
 
+    void removeElement(T* arr, int index, int& sizeArr)
+    {
+        int i;
+        for (i = index; i < sizeArr - 1; i++)
+        {
+            arr[i] == arr[i + 1];
+        }
+        sizeArr--;
+    }
+
+    void removeDuplicates(T* arr, int& sizeArr) {
+        T element;
+        int i;
+        int j;
+        for (i = 0; i < sizeArr; i++)
+        {
+            element = arr[i];
+            for (int j = (i + 1); j < sizeArr; j++)
+            {
+                if (element == arr[j])
+                {
+                    removeElement(arr, j, sizeArr);
+                    j--;
+                }
+            }
+        }
     }
 
     // //! How many values are in this set?
@@ -84,7 +126,7 @@ public:
     // Iterator begin();
     // ConstIterator begin() const;
 
-    // Iterator end(){}
+    // Iterator end();
     // ConstIterator end() const;
 
     // /**
@@ -99,25 +141,34 @@ public:
 
 int main() {
     Set<int>set1;
-    set1.insert(9);
-    set1.insert(7);
     set1.insert(3);
-    set1.insert(5);
-    set1.insert(6);
-    set1.insert(1);
-    set1.insert(8);
     set1.insert(4);
+    set1.insert(4);
+    set1.insert(4);
+    set1.insert(4);
+    set1.insert(5);
+    set1.insert(1);
+    set1.insert(20);
+    set1.insert(6);
+    set1.insert(8);
+    set1.insert(8);
+    set1.insert(20);
+    set1.insert(21);
+    set1.insert(15);
     set1.size();
     set1.outputSet();
     Set<char>set2;
+    set2.insert('g');
     set2.insert('g');
     set2.insert('c');
     set2.insert('d');
     set2.insert('f');
     set2.insert('h');
     set2.insert('a');
+    set2.insert('a');
     set2.insert('b');
+    set2.insert('f');
     set2.size();
     set2.outputSet();
-    return 0;
+    // return 0;
 }
